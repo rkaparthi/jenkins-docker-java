@@ -4,7 +4,7 @@
 # Optional: Build WAR here if you want multi-stage
 # Otherwise, skip this stage and use Maven build before Docker
 
-FROM tomcat:9.0-jdk17-corretto
+FROM tomcat:8-jre11
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the WAR to Tomcat webapps directory

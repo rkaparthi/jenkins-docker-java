@@ -43,7 +43,7 @@ pipeline {
                 script {
                     // Run the Docker container (Tomcat with WAR)
                     sh """
-                        docker run -d -p 8080:8080 ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
+                        docker run -d -p 80:8080 ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
                     """
                 }
             }

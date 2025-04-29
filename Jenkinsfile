@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourrepo/spring-boot-war-example.git'
+                git 'https://github.com/rkaparthi/jenkins-docker-java.git'
             }
         }
 

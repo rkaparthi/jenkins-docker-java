@@ -7,7 +7,7 @@
 FROM tomcat:9.0-jdk17-corretto
 
 # Copy the WAR to Tomcat webapps directory
-COPY target/spring-boot-war-example.war /usr/local/tomcat/webapps/
+COPY target/*.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 

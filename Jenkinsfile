@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'spring-boot-war-example'
+        DOCKER_IMAGE = 'employee-service'
         DOCKER_REGISTRY = 'docker.io' // Use your registry here
         DOCKER_TAG = 'latest'
     }

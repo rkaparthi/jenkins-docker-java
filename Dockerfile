@@ -5,9 +5,10 @@
 # Otherwise, skip this stage and use Maven build before Docker
 
 FROM tomcat:9.0-jdk17-corretto
+RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the WAR to Tomcat webapps directory
-COPY target/*.war /usr/local/tomcat/webapps/
+COPY target/employee-service.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 

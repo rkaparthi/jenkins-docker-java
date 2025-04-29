@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools{
+        maven "mymaven"
+    }
+
     environment {
         DOCKER_IMAGE = 'spring-boot-war-example'
         DOCKER_REGISTRY = 'docker.io' // Use your registry here

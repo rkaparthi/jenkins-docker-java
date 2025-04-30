@@ -12,8 +12,9 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 #-------stage2--------
-FROM image1     
+FROM image1 AS image2
 
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+ENTRYPOINT ["catalina.sh", "run","&&","ping","google.com" ]
+ENTRYPOINT ["sh", "-c", "catalina.sh run && ping google.com" ]

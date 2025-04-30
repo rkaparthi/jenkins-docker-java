@@ -4,6 +4,7 @@
 # Optional: Build WAR here if you want multi-stage
 # Otherwise, skip this stage and use Maven build before Docker
 
+
 FROM tomcat:10.1-jdk17-corretto
 RUN rm -rf /usr/local/tomcat/webapps/*
 

@@ -6,9 +6,10 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'employee-service'
-        DOCKER_REGISTRY = 'docker.io' // Use your registry here
-        DOCKER_TAG = 'latest'
+        ECR_REPO_NAME = 'my-iam-user-jenkins-ecr-repo'
+        IMAGE_TAG = 'latest' // Use your registry here
+        AWS_REGION = 'ap-south-1'
+        AWS_ACCOUNT_ID = '571892790155'
     }
 
     stages {
@@ -27,23 +28,46 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
+        stage('configure AWS creds and ECR Login') {
             steps {
-                script {
-                    // Build the Docker image
-                    sh """
-                        docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG} .
-                    """
+                script{
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        // some block
+                        sh """
+                        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                        aws configure set default.region us-west-2
+                        aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+                        """
+                    }  
                 }
             }
         }
 
-        stage('Deploy to Docker') {
+        stage('Docker Build') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh "docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG} ."
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        
+        stage('Deploy') {
             steps {
                 script {
                     // Run the Docker container (Tomcat with WAR)
                     sh """
-                        docker run -d -p 80:8080 ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
+                        docker run -itd -p 80:8080 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
                     """
                 }
             }

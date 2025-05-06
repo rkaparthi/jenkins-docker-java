@@ -16,4 +16,4 @@ FROM image1 AS image2
 
 EXPOSE 8080
 
-ENTRYPOINT ["catalina.sh", "run" ]
+CMD ["catalina.sh", "run" ]

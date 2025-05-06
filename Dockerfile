@@ -16,5 +16,4 @@ FROM image1 AS image2
 
 EXPOSE 8080
 
-ENTRYPOINT ["catalina.sh", "run","&&","ping","google.com" ]
-ENTRYPOINT ["sh", "-c", "catalina.sh run && ping google.com" ]
+ENTRYPOINT ["catalina.sh", "run" ]

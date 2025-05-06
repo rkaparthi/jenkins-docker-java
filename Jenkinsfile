@@ -66,7 +66,7 @@ pipeline {
                 script {
                     // Run the Docker container (Tomcat with WAR)
                     sh """
-                        docker run -itd -p 80:8080 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
+                        docker run -itd -p $port:8080 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}
                     """
                 }
             }

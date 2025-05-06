@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         ECR_REPO_NAME = 'my-iam-user-jenkins-ecr-repo'
-        IMAGE_TAG = 'latest' // Use your registry here
         AWS_REGION = 'ap-south-1'
         AWS_ACCOUNT_ID = '571892790155'
     }

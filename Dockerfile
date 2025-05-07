@@ -15,5 +15,5 @@ COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 FROM image1 AS image2
 
 EXPOSE 8080
-
+ENV JAVA_OPTS="-XX:+UseContainerSupport -Xms256m -Xmx512m"
 CMD ["catalina.sh", "run" ]

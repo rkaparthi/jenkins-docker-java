@@ -1,1 +1,2 @@
-com\example\SpringBootWarApplication.class
+com\example\employeeservice\controller\EmployeeController.class
+com\example\employeeservice\EmployeeServiceApplication.class

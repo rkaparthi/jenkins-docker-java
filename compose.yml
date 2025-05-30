@@ -1,0 +1,14 @@
+services:
+  frontend:
+    deploy:
+      replicas: 2
+    build: ./frontend
+    image: kravalii
+    ports:
+      - "80"
+  backend:
+    deploy:
+      replicas: 3
+    image: kravali/jenkins-docker-java:getpostwithoutloadbalancer-v1
+    ports:
+      - "8080"	
